@@ -252,22 +252,6 @@ const Dashboard = () => {
               <p className="text-sm text-gray-300">Start a new prompt evaluation experiment</p>
             </CardContent>
           </Card>
-          {/* View Analytics */}
-          <Card
-            className={glowCard}
-            onClick={() => router.push("/analytics")}
-          >
-            <span
-              className={`${glowInner} bg-gradient-to-br from-blue-400 via-cyan-500 to-green-400 blur-2xl`}
-            />
-            <CardContent className="p-6 text-center relative z-10">
-              <div className="w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <BarChart3 className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-semibold text-gray-100 mb-2">View Analytics</h3>
-              <p className="text-sm text-gray-300">Analyze performance across all experiments</p>
-            </CardContent>
-          </Card>
           {/* A/B Test */}
           <Card
             className={glowCard}

@@ -23,6 +23,7 @@ const AuthForm = ({ onAuthComplete }: AuthFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
 
   const handleEmailAuth = async (mode: "signin" | "signup") => {
     setIsLoading(true);
@@ -39,6 +40,9 @@ const AuthForm = ({ onAuthComplete }: AuthFormProps) => {
           }
         });
         if (error) throw error;
+        setShowConfirmPopup(true);
+        setIsLoading(false);
+        return;
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
@@ -71,6 +75,18 @@ const AuthForm = ({ onAuthComplete }: AuthFormProps) => {
    
       <div className="w-full max-w-3xl mx-auto p-8 bg-gray-900/95 rounded-2xl shadow-2xl flex flex-col items-center space-y-6 border-2 border-blue-900/60 backdrop-blur-md relative"
         style={{ boxShadow: '0 0 24px 0 #2563eb44, 0 0 48px 0 #0ea5e944' }}>
+        {/* Popup for email confirmation */}
+        {showConfirmPopup && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+            <div className="bg-white rounded-xl shadow-xl p-8 max-w-sm w-full text-center">
+              <h2 className="text-2xl font-bold mb-2 text-blue-700">Confirm Your Email</h2>
+              <p className="text-gray-700 mb-4">A confirmation link has been sent to <span className="font-semibold">{email}</span>.<br/>Please check your inbox and follow the instructions to activate your account.</p>
+              <Button className="w-full bg-blue-600 text-white mt-2" onClick={() => setShowConfirmPopup(false)}>
+                Close
+              </Button>
+            </div>
+          </div>
+        )}
         {/* Logo */}
         <motion.div 
           className="text-center mb-8 "
