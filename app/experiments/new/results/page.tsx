@@ -191,6 +191,8 @@ const RadarTooltip = ({ active, payload }: any) => {
 export default function OptimizationResults() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
+  const [championExpanded, setChampionExpanded] = useState(false);
 
   // Parse real data from URL
   const searchParams = useSearchParams();
@@ -206,6 +208,22 @@ export default function OptimizationResults() {
   const bestPrompt = result?.best_prompt || {};
   const ctaReason = result?.cta_reason || '';
   const trials = Array.isArray(result?.trials) ? result.trials : [];
+
+  // Toggle expanded state for a card
+  const toggleExpanded = (cardIndex: number) => {
+    const newExpanded = new Set(expandedCards);
+    if (newExpanded.has(cardIndex)) {
+      newExpanded.delete(cardIndex);
+    } else {
+      newExpanded.add(cardIndex);
+    }
+    setExpandedCards(newExpanded);
+  };
+
+  // Toggle champion prompt expansion
+  const toggleChampionExpanded = () => {
+    setChampionExpanded(!championExpanded);
+  };
 
   // Prepare chart data from real trials
   const chartData = trials.map((trial: any, index: number) => ({
@@ -332,11 +350,31 @@ export default function OptimizationResults() {
                     <div className="space-y-4">
                       <div>
                         <h4 className="text-emerald-400 font-semibold mb-2">Prompt</h4>
-                        <p className="text-slate-300 leading-relaxed">{bestPrompt.prompt}</p>
+                        <p className={`text-slate-300 leading-relaxed ${championExpanded ? '' : 'line-clamp-3'}`}>
+                          {bestPrompt.prompt}
+                        </p>
+                        {bestPrompt.prompt && bestPrompt.prompt.length > 150 && (
+                          <button
+                            onClick={toggleChampionExpanded}
+                            className="mt-2 text-sm text-emerald-400 hover:text-emerald-300 transition-colors duration-200 font-medium"
+                          >
+                            {championExpanded ? 'Show Less' : 'Show All'}
+                          </button>
+                        )}
                       </div>
                       <div>
                         <h4 className="text-blue-400 font-semibold mb-2">Output</h4>
-                        <p className="text-slate-300 leading-relaxed">{bestPrompt.output}</p>
+                        <p className={`text-slate-300 leading-relaxed ${championExpanded ? '' : 'line-clamp-3'}`}>
+                          {bestPrompt.output}
+                        </p>
+                        {bestPrompt.output && bestPrompt.output.length > 150 && (
+                          <button
+                            onClick={toggleChampionExpanded}
+                            className="mt-2 text-sm text-emerald-400 hover:text-emerald-300 transition-colors duration-200 font-medium"
+                          >
+                            {championExpanded ? 'Show Less' : 'Show All'}
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -562,12 +600,38 @@ export default function OptimizationResults() {
                       <div className="space-y-3 mb-4">
                         <div className="bg-slate-900/50 p-3 rounded-lg border border-slate-700/30 group-hover:border-slate-600/50 transition-colors duration-300">
                           <div className="text-xs text-slate-500 mb-1">PROMPT</div>
-                          <p className="text-slate-300 text-sm leading-relaxed line-clamp-2">{trial.prompt.prompt}</p>
+                          <p className={`text-slate-300 text-sm leading-relaxed ${expandedCards.has(idx) ? '' : 'line-clamp-2'}`}>
+                            {trial.prompt.prompt}
+                          </p>
+                          {trial.prompt.prompt && trial.prompt.prompt.length > 100 && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleExpanded(idx);
+                              }}
+                              className="mt-2 text-xs text-emerald-400 hover:text-emerald-300 transition-colors duration-200 font-medium"
+                            >
+                              {expandedCards.has(idx) ? 'Show Less' : 'Show All'}
+                            </button>
+                          )}
                         </div>
                         
                         <div className="bg-slate-900/50 p-3 rounded-lg border border-slate-700/30 group-hover:border-slate-600/50 transition-colors duration-300">
                           <div className="text-xs text-slate-500 mb-1">OUTPUT</div>
-                          <p className="text-slate-300 text-sm leading-relaxed line-clamp-2">{trial.prompt.output}</p>
+                          <p className={`text-slate-300 text-sm leading-relaxed ${expandedCards.has(idx) ? '' : 'line-clamp-2'}`}>
+                            {trial.prompt.output}
+                          </p>
+                          {trial.prompt.output && trial.prompt.output.length > 100 && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleExpanded(idx);
+                              }}
+                              className="mt-2 text-xs text-emerald-400 hover:text-emerald-300 transition-colors duration-200 font-medium"
+                            >
+                              {expandedCards.has(idx) ? 'Show Less' : 'Show All'}
+                            </button>
+                          )}
                         </div>
                       </div>
 

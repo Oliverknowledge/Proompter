@@ -98,6 +98,11 @@ export type Database = {
           updated_at: string | null
           user_id: string
           team_code: string | null
+          hallucination_score: number | null
+          emotional_score: number | null
+          cta_score: number | null
+          cta_reason: string | null
+          is_best: boolean | null
         }
         Insert: {
           created_at?: string | null
@@ -109,6 +114,11 @@ export type Database = {
           updated_at?: string | null
           user_id: string
           team_code?: string | null
+          hallucination_score?: number | null
+          emotional_score?: number | null
+          cta_score?: number | null
+          cta_reason?: string | null
+          is_best?: boolean | null
         }
         Update: {
           created_at?: string | null
@@ -120,6 +130,11 @@ export type Database = {
           updated_at?: string | null
           user_id?: string
           team_code?: string | null
+          hallucination_score?: number | null
+          emotional_score?: number | null
+          cta_score?: number | null
+          cta_reason?: string | null
+          is_best?: boolean | null
         }
         Relationships: []
       }
