@@ -63,15 +63,33 @@ This tool is built for **quick hackathons**, **startup scale**, and **production
 
 ---
 
-## 📐 Architecture
 
-```mermaid
-graph TD
-  A[User] -->|Web UI| B[Next.js Frontend]
-  B -->|API Calls| C[API Routes (Next.js)]
-  C -->|Prompts| D[Python Evaluator (Opik, LiteLLM)]
-  D -->|Scores| C
-  C -->|Results| B
-  B -->|Client SDK| E[Supabase DB]
-  C -->|Supabase Server SDK| E
-  C -->|Notify| F[Telegram / Email]
+## Code structure
+
+
+proompter/
+├── app/                    # Next.js App Router structure
+│   ├── dashboard/          # Authenticated dashboard
+│   ├── experiments/        # Prompt submission + results
+│   ├── api/                # Backend API routes
+│   │   ├── optimize/       # Handles batch prompt evaluation
+│   │   └── run/            # Handles one-shot evaluations
+│   └── auth/               # Login, signup, email confirm
+├── components/             # Reusable UI (ShadCN, Framer Motion, custom)
+├── scripts/                # Python backend
+│   ├── optimize.py         # Core evaluation orchestrator
+│   └── metrics/            # Add your own metrics here!
+├── lib/                    # Supabase client, chunking utils
+├── supabase/               # SQL, schema, and RLS policies
+├── public/                 # Static assets
+├── .env.example            # Example environment file
+├── README.md
+
+## Screenshots:
+
+![image](https://github.com/user-attachments/assets/a45c1c44-5607-4572-9b5b-a136ab2cc6a3)
+![image](https://github.com/user-attachments/assets/96f5b07c-bf9b-4ee9-bc38-406e174d6611)
+![image](https://github.com/user-attachments/assets/3239139f-2451-4a43-bb3b-dd9bc77a1555)
+
+
+
