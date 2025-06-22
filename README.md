@@ -1,140 +1,77 @@
-🧠 Proompter: Collaborative Prompt Evaluation & Optimization Platform
-⚡ Supercharge your AI workflows. Automate prompt evaluation. Build better prompts—together.
+# 🧠 Proompter — AI Prompt Evaluation & Optimization Platform
 
-🚀 Problem
-Prompt engineering is slow, subjective, and non-collaborative.
-Teams often guess which prompt performs best, without scalable tools to measure, compare, or optimize.
+**Built with Next.js, Supabase, Python, Opik, and LiteLLM**
 
-🎯 Solution: Proompter
-Proompter is a full-stack AI prompt evaluation & optimization platform that lets individuals and teams:
+---
 
-🚀 Rapidly test, score, and compare prompts.
+## 🚀 The Problem
 
-🧪 Run automated A/B tests with quantitative evaluation (relevance, hallucination, tone, etc.).
+AI teams waste hours manually evaluating prompt quality. Without structure, iteration becomes guesswork. Metrics are inconsistent. Collaboration is messy. And scaling tests? Painful.
 
-🤝 Collaborate in real-time with shared results, version history, and notifications.
+---
 
-Built with Next.js, Three.js, Python, Opik, LiteLLM, Supabase, and TailwindCSS, Proompter is designed to be hackathon-ready, dev-friendly, and scalable for production use.
+## 🧩 The Solution — Proompter
 
-🧩 Key Features
-Feature	Description
-🧪 Automated Prompt Evaluation	Evaluate multiple prompts at once using Python + Opik + LiteLLM.
-📊 Multi-Metric Scoring	Assess prompts using relevance, hallucination, emotional tone, and CTA clarity.
-🔁 Iterative Optimization	A/B test prompt variants and run multi-step optimization flows.
-👥 Team Collaboration	Share experiments, invite teammates, and track history together.
-📦 Chunked Processing	Efficiently handles large prompt sets (both frontend and backend).
-✨ Modern UX	Beautiful UI with Framer Motion animations and Three.js visualizations.
-🔧 Customizable	Drop in your own metrics or expand the system with your evaluation logic.
+**Proompter** is a full-stack platform that **automates** prompt evaluation and **accelerates** prompt engineering workflows.
 
-🛠️ Tech Stack
-Layer	Stack
-Frontend	Next.js · React · TailwindCSS · Framer Motion · Three.js
-Backend	Next.js API Routes · Python (Opik + LiteLLM)
-Auth & DB	Supabase (PostgreSQL + Auth + Realtime)
-Infra & Hosting	Vercel (Frontend) · Supabase (Backend/Postgres)
-AI Evaluation	LiteLLM wrapper for OpenAI & other LLMs · Opik for standardized prompt grading
-Notifications	Telegram Bot · Email (via Supabase)
+It enables teams to:
+- Instantly **score prompts** across multiple metrics (e.g., hallucination, CTA strength)
+- **Compare and optimize** prompt sets using A/B testing and iterative loops
+- **Collaborate as a team**, track results, and make data-driven prompt decisions
 
-🧱 Codebase Structure
-ruby
-Copy
-Edit
-proompter/
-├── app/                      # Next.js App Router
-│   ├── api/                 # API routes (e.g., /api/optimize)
-│   └── dashboard/           # Authenticated dashboard views
-├── components/              # Reusable UI components (Tailwind + Framer Motion)
-├── lib/                     # Supabase client, auth utils, helpers
-├── scripts/                 # Python backend for evaluation
-│   ├── optimize.py          # Core evaluator
-│   └── metrics/             # Pluggable custom metrics
-├── supabase/                # SQL migrations, schema, Supabase config
-├── public/                  # Static assets
-├── .env.example             # Example environment variables
-├── next.config.js           # Next.js config
-├── tailwind.config.js       # TailwindCSS config
-└── README.md                # This file
-📈 How It Works
-Register & Authenticate: Secure signup via email or Google OAuth.
+This tool is built for **quick hackathons**, **startup scale**, and **production extensibility**.
 
-Submit Prompt Experiments: Input multiple prompts and task context.
+---
 
-Automated Evaluation: Prompts are sent to a Python backend where Opik + LiteLLM analyze them across multiple metrics.
+## 🛠️ Tech Stack
 
-Chunking Engine: Both frontend and backend automatically split large prompt batches.
+| Layer          | Tech Used                            |
+| -------------- | ------------------------------------ |
+| Frontend       | Next.js (App Router), React, TailwindCSS, Framer Motion, ShadCN, Three.js |
+| Backend        | Next.js API Routes, Python (Opik, LiteLLM), Supabase Functions |
+| Evaluation     | Python scripts with modular metric engine (hallucination, CTA, etc.) |
+| Auth & DB      | Supabase Auth + Postgres (Row-level security, Team-based ACL) |
+| Notifications  | Email + Telegram (optional) |
+| Hosting        | Vercel (frontend) + Supabase (backend + DB) |
 
-Results & Optimization: Scores are returned and ranked; users can launch A/B tests or iterate.
+---
 
-Team Sharing: Collaborators can view, comment, and get notified about prompt experiments.
+## ✨ Key Features
 
-🔌 Key API Endpoints
-Endpoint	Method	Description
-/api/optimize	POST	Evaluate a batch of prompts. Handles chunked requests, returns scores.
-/api/optimization-runs	POST	Launch or continue a multi-step optimization session.
-/api/run	POST	Run a single prompt test and get feedback.
-auth/, teams/	Various	Handle authentication and team collaboration endpoints.
+- ✅ **Automated Multi-Metric Evaluation** (relevance, hallucination, emotional tone, CTA strength)
+- ⚙️ **Prompt Optimization Engine** (run batch A/B tests and auto-select best performers)
+- 👥 **Team Collaboration** (invite teammates, view shared results, assign experiments)
+- 📊 **Live Dashboard** (real-time metrics, history, experiments)
+- 📦 **Chunked Processing** (scale across hundreds of prompts)
+- 🔌 **Extensible Python Metric System** (add custom prompt evaluators in seconds)
+- 🔐 **Secure Auth** with Email + Google OAuth
 
-⚙️ Local Setup
-✅ Requirements
-Node.js 18+
+---
 
-Python 3.9+
+## 🧠 How It Works
 
-Supabase project (setup or use provided migrations)
+1. **Sign Up & Log In**
+2. **Create an Experiment**  
+   Input task description and a set of prompt candidates.
+3. **Automated Evaluation**  
+   Prompts are sent to a Python backend via chunked requests.  
+   Opik + LiteLLM score prompts across multiple dimensions.
+4. **Get Results**  
+   Top-performing prompts are auto-highlighted with visual scoring.
+5. **Optimize & Share**  
+   Run A/B tests or iterative experiments. Invite your team and share results.
 
-🧪 Quickstart
-bash
-Copy
-Edit
-git clone https://github.com/your-org/proompter.git
-cd proompter
-npm install
-pip install -r requirements.txt
-🔐 Environment Variables
-Create .env from .env.example:
+---
 
-env
-Copy
-Edit
-SUPABASE_URL=...
-SUPABASE_ANON_KEY=...
-OPENAI_API_KEY=...
-TELEGRAM_BOT_TOKEN=...
-🚀 Run
-bash
-Copy
-Edit
-npm run dev  # launches frontend (Next.js)
-Visit http://localhost:3000
+## 📐 Architecture
 
-🧩 Extending Proompter
-Task	How
-Add new evaluation metric	Add a file in scripts/metrics/, then import it in optimize.py.
-Add UI views	Use the Tailwind + Framer-powered components in components/ui/.
-Add API logic	Add a new handler under app/api/.
-Add team logic	Extend teams, prompt_history, optimization_runs in Supabase.
-
-👥 Team Collaboration
-👨‍👩‍👧 Invite teammates
-
-📊 Share and comment on experiments
-
-🔔 Get notified by email or Telegram when results are ready
-
-🏁 Hackathon Highlights
-What We Solved	How
-❌ Prompt engineering is subjective	✅ Used Opik to provide standardized scores for prompts
-❌ No scalable way to evaluate at once	✅ Built chunking + batch API for massive prompt sets
-❌ No team-based prompt iteration tools	✅ Added shared dashboards, history, and notifications
-❌ Hard to define “best” prompt	✅ Built-in metrics + scoring engine + iterative optimizer
-
-📜 License
-MIT License – use freely, fork, and build upon it.
-
-💬 Final Pitch
-Proompter brings structure and scalability to the chaotic world of prompt engineering.
-Instead of guessing, teams can now test, score, and optimize their prompts using robust AI metrics—fast.
-
-With an extensible architecture, a real-time collaborative UI, and powerful evaluation logic, Proompter is built to empower the next generation of AI creators.
-
-Would you like a deployment badge, demo link section, or images/gifs added? I can tailor it further for judges with visuals or a walkthrough section.
+```mermaid
+graph TD
+  A[User] -->|Web UI| B[Next.js Frontend]
+  B -->|API Calls| C[API Routes (Next.js)]
+  C -->|Prompts| D[Python Evaluator (Opik, LiteLLM)]
+  D -->|Scores| C
+  C -->|Results| B
+  B -->|Client SDK| E[Supabase DB]
+  C -->|Supabase Server SDK| E
+  C -->|Notify| F[Telegram / Email]
